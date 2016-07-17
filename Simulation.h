@@ -14,5 +14,6 @@ class Simulation : public TObject
   private:
       int x;  
       int y;
+      Settings A;
    ClassDef(Simulation,1) 
 };
