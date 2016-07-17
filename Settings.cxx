@@ -10,6 +10,7 @@ Settings::Settings()
        gerator = 1;
        energy = 2300;
 
+//Numeric parameters:
        xMinpt = 0;
        xMaxpt =3;
        xMin = -10;
@@ -20,6 +21,9 @@ Settings::Settings()
        pInt = 100;
  //    xi = xMin;
        size = 54;
+
+ //File:
+       fileName = 3; 
 }
 Settings::Method1()
 {

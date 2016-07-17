@@ -1,0 +1,8 @@
+
+The main program is "Simulation"
+To compile it, it is necessary to load first the files: File.cxx, Settings and Simulation.cxx.
+Then, the compilation is straight forward.
+
+e.g. 
+Simulation *a = new Simulation(10,20);
+

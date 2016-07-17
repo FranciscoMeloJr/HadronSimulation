@@ -14,6 +14,7 @@ class Simulation : public TObject
   private:
       int x;  
       int y;
-      Settings A;
+      Settings Config;
+      File      Arc;      
    ClassDef(Simulation,1) 
 };
