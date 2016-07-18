@@ -10,14 +10,14 @@ Equation::Equation(double e)
    energia  = e;
 }
 //Functions:
-double Equation::Eq1()
+double Equation::EqLog()
 {
    cout <<"Equation 1" << endl;
    num_part_log = (7.8*log(energia))-19;
    return num_part_log;
 }
 
-double Equation::Eq2()
+double Equation::EqLin()
 {
    cout <<"Equation 2" << endl;
    num_part = (0.004 * energia)+31;  
@@ -28,10 +28,10 @@ double Equation::Eq(int i )
 {
    if(i < 0)
    {
-      return Eq1();
+      return EqLin();
    } 
    else
    {
-     return  Eq2();
+     return  EqLog();
    } 
 }

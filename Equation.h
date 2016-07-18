@@ -11,8 +11,8 @@ class Equation : public TObject
 {
   public:
         Equation(double d);
-        double Eq1();
-        double Eq2();
+        double EqLin();
+        double EqLog();
         double Eq(int i);
   private:
         double energia;     

@@ -2,6 +2,7 @@
 #include "Settings.h"
 #include "File.h"
 #include "Particle.h"
+#include "Equation.h"
 
 //Default:
 ClassImp(Simulation)
@@ -84,6 +85,11 @@ void MonteCarlo()
     cout << "Monte Carlo" << endl;
     gRandom = new TRandom3(0);
     gRandom->setSeed(0);
+    
+    Equation *eq = new Equation(Config.energy);
+    //which equation?: log or linear
+    double n_p = eq->(1); 
 
-}
+    
+}  
 //Simulation S(10);
