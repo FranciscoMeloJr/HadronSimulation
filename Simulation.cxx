@@ -60,7 +60,7 @@ void Simulation::RunSimulation()
     Normalization();
     Event events[2];
 
-    events[0] = new Event(b, Config.energy);
+    events[0] = new Event(b, Config.energy,1);
 
     cout << "Simulation end" << endl;
 }

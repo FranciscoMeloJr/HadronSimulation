@@ -5,21 +5,25 @@
 ClassImp(Event)
 
 //Construtor:
-Event::Event(Particle d[], double e)
+Event::Event(Particle d[], int  e, int eq)
 {
    cout << "Event" <<endl;
    energia = e;
    Particle *p = d;
-   
+   Equation *eq = new Equation(e, eq);
+
   //Pointer operations, size is an argument:
   
  
 }
 //Functions:
-double Event::Execute()
+//Return the result of the Event, in a matrix:
+double** Event::Execute()
 {
-  return 3.4;  
+  result[2][2] = {0};
+  return result;  
 }
+
 //This method run the monteCarlo Simulation
 void MonteCarlo()
 {
@@ -27,9 +31,9 @@ void MonteCarlo()
     gRandom = new TRandom3(0);
     gRandom->setSeed(0);
 
-    Equation *eq = new Equation(energia);
+    //Equation *eq = new Equation(energia);
     //which equation?: log or linear
-    double n_p = eq->(1);
+    double n_p = eq->Eq();
 
 
 }

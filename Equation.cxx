@@ -5,7 +5,7 @@
 ClassImp(Equation)
 
 //Construtor:
-Equation::Equation(double e)
+Equation::Equation(double e, int equation)
 {
    energia  = e;
 }
@@ -24,9 +24,9 @@ double Equation::EqLin()
    return num_part;
 }
 //
-double Equation::Eq(int i )
+double Equation::Eq()
 {
-   if(i < 0)
+   if(equation < 0)
    {
       return EqLin();
    } 

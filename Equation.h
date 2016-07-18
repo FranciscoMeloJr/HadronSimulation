@@ -10,10 +10,10 @@ using namespace std;
 class Equation : public TObject
 {
   public:
-        Equation(double d);
+        Equation(double d, int eq);
         double EqLin();
         double EqLog();
-        double Eq(int i);
+        double Eq();
   private:
         double energia;     
   ClassDef(Equation,1)

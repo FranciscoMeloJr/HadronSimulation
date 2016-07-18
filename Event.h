@@ -10,10 +10,13 @@ using namespace std;
 class Event: public TObject
 {
   public:
-        Event(Particle *d);
-        double Execute();
+        Event(Particle *d, int e, int eq);
+        double** Execute();
+        void MonteCarlo();
        
   private:
-        double energia;     
+        double energia;
+        Particle *all;
+        int  eq;      
   ClassDef(Event,1)
 };
