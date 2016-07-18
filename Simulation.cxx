@@ -55,7 +55,13 @@ void Simulation::RunSimulation()
     a->calculateMomentumAndRapidity(0,3,12,-10,10);
     b[0].calculateMomentumAndRapidity(1,3,12,-10,10);
     b[1].calculateMomentumAndRapidity(5,2,25,-10,10);
+
     
+    Normalization();
+    Event events[2];
+
+    events[0] = new Event(b, Config.energy);
+
     cout << "Simulation end" << endl;
 }
 //Normalization process:

@@ -10,10 +10,10 @@ using namespace std;
 class Event: public TObject
 {
   public:
-        Event(Particle d[]);
+        Event(Particle *d);
         double Execute();
        
   private:
         double energia;     
   ClassDef(Event,1)
-}
+};
