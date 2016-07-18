@@ -14,12 +14,22 @@ Particle::Particle(int i, int c, double m, double n)
         
 }
 //Get Result:
-double Particle::getResult()
+double Particle::GetResult()
 {
   return resultado_integral;
 }
+//Get N:
+double Particle::GetN()
+{
+  return N;
+}
+//Set P:
+void Particle::SetP(double r)
+{
+  P=r;
+}
 //Calculate Momentum:
-void Particle::calculateMomentumAndRapidity(int xminpt, int xmaxpt,int div, int xMin, int xMax){
+void Particle::CalculateMomentumAndRapidity(int xminpt, int xmaxpt,int div, int xMin, int xMax){
   cout << "Momentum";
   //int div = 12;
   const int pInt = 100; 

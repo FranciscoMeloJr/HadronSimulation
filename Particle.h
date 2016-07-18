@@ -12,14 +12,17 @@ class Particle : public TObject
 {
   public: 
        Particle(int i, int c, double m, double n);
-       void calculateMomentumAndRapidity(int xMinpt, int xMaxpt, int div, int xMin,int xMax);
-       double getResult();
-
+       void CalculateMomentumAndRapidity(int xMinpt, int xMaxpt, int div, int xMin,int xMax);
+       double GetResult();
+       double GetN();
+       void SetP(double r);
   private:
        double mass;
        int charge;
        double N;
        int id;
+
+       double P;
        double resultado_integral;
 
   //Calculated:

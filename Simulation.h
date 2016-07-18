@@ -11,8 +11,9 @@ class Simulation : public TObject
   public:
        Simulation(int x, int y);
        void Calculate();   
-       void createParticles();
-       void runSimulation();
+       void CreateParticles();
+       void RunSimulation();
+       void MonteCarlo();
 
   private:
       int x;  

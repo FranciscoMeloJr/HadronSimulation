@@ -38,7 +38,7 @@ void Simulation::Calculate()
 }
 
 //this method creates the particles
-void Simulation::createParticles()
+void Simulation::CreateParticles()
 {
     //Create all the particles:
     a  = new Particle(1,-1,0.00333,23.0);  
@@ -47,10 +47,43 @@ void Simulation::createParticles()
 }
 
 //This method run the simulation:
-void Simulation::runSimulation()
+void Simulation::RunSimulation()
 {
+    cout << "Simulation begin" << endl;
+
     a->calculateMomentumAndRapidity(0,3,12,-10,10);
     b[0].calculateMomentumAndRapidity(1,3,12,-10,10);
     b[1].calculateMomentumAndRapidity(5,2,25,-10,10);
+    
+    cout << "Simulation end" << endl;
+}
+//Normalization process:
+void Normalization()
+{
+    int size = 2;
+    double n[size];
+    int total=0; 
+    double r;
+
+    //take N from particles:
+    for(int i = 0 ; i< size; i++)
+    {
+       n[i]=b[i].getN();
+       total+=n[i];
+    }
+    //set P in the particles:
+    for(int j=0; j<size; j++)
+    {
+        r = r+(n[j]/total);
+        b[j].setP(r);
+    }
+}
+//This method run the monteCarlo Simulation
+void MonteCarlo()
+{
+    cout << "Monte Carlo" << endl;
+    gRandom = new TRandom3(0);
+    gRandom->setSeed(0);
+
 }
 //Simulation S(10);
