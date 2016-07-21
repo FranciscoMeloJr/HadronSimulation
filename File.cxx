@@ -26,7 +26,7 @@ File::Write(int n_p, double result[][])
                 myfile << result[c][0] << "\t" << result[c][1] << "\t" << result[c][2] << "\t" << result[c][3] <<endl;       // Salvando os valores em um arquivo externo       
 
                 }
-  }                   // Fim de "for(g)"
+  //}                   // Fim de "for(g)"
 
   myfile.close();
 

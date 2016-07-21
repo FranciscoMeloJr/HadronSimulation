@@ -15,8 +15,8 @@ class Settings : public TObject
        int gerator;
        double energy;
 
-       double xMinp;
-       double xMaxpt;
+       double xminpt;
+       double xmaxpt;
        double xMin;
        double xMax;
        Double_t div;

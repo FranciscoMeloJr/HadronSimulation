@@ -43,8 +43,8 @@ void Simulation::CreateParticles()
 {
     //Create all the particles:
     a  = new Particle(1,-1,0.00333,23.0);  
-    b[0] = new Particle(2,-1,0.034,24.0); 
-    b[1] = new Particle(3,1,0.024,23.0);
+    part[0] = new Particle(2,-1,0.034,24.0); 
+    part[1] = new Particle(3,1,0.024,23.0);
 }
 
 //This method run the simulation:
@@ -53,8 +53,8 @@ void Simulation::RunSimulation()
     cout << "Simulation begin" << endl;
 
     a->calculateMomentumAndRapidity(0,3,12,-10,10);
-    b[0].calculateMomentumAndRapidity(1,3,12,-10,10);
-    b[1].calculateMomentumAndRapidity(5,2,25,-10,10);
+    part[0].calculateMomentumAndRapidity(1,3,12,-10,10);
+    part[1].calculateMomentumAndRapidity(2,3,12,-10,10);
 
     
     Normalization();
@@ -67,23 +67,24 @@ void Simulation::RunSimulation()
 //Normalization process:
 void Normalization()
 {
-    int size = 2;
+    const int size = 2;
     double n[size];
     int total=0; 
     double r;
 
+    int  i = 0, j= 0;
     //take N from particles:
-    for(int i = 0 ; i< size; i++)
-    {
-       n[i]=b[i].getN();
+    //for(int i = 0 ; i< size; i++)
+    //{
+       n[i]=part[i].GetN();
        total+=n[i];
-    }
+    //}
     //set P in the particles:
-    for(int j=0; j<size; j++)
-    {
+    //for(int j=0; j<size; j++)
+    //{
         r = r+(n[j]/total);
-        b[j].setP(r);
-    }
+        part[j].setP(r);
+    //}
 }
 //This method run the monteCarlo Simulation
 void MonteCarlo()

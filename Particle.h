@@ -12,10 +12,11 @@ class Particle : public TObject
 {
   public: 
        Particle(int i, int c, double m, double n);
-       void CalculateMomentumAndRapidity(int xMinpt, int xMaxpt, int div, int xMin,int xMax);
+       void CalculateMomentumAndRapidity(int xminpt, int xmaxpt, int div, int xMin,int xMax);
        double GetResult();
        double GetN();
        void SetP(double r);
+       double GetP();
   private:
        double mass;
        int charge;

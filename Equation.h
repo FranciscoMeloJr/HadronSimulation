@@ -15,6 +15,7 @@ class Equation : public TObject
         double EqLog();
         double Eq();
   private:
-        double energia;     
+        double energia;   
+        int equation;  
   ClassDef(Equation,1)
-}
+};

@@ -1,5 +1,4 @@
 #include "Particle.h"
- 
 
 ClassImp(Particle)
 
@@ -11,25 +10,30 @@ Particle::Particle(int i, int c, double m, double n)
     N = n;
     charge = c;
     mass = m;
-        
+    //P = xx;
+    
 }
-//Get Result:
+//Return  Result
 double Particle::GetResult()
 {
-  return resultado_integral;
+     return resultado_integral;
 }
-//Get N:
+//Return N:
 double Particle::GetN()
 {
-  return N;
+    return N;
 }
-//Set P:
+//Return P
 void Particle::SetP(double r)
 {
-  P=r;
+   P = r;
+}
+double Particle::GetP()
+{
+  return P;
 }
 //Calculate Momentum:
-void Particle::CalculateMomentumAndRapidity(int xminpt, int xmaxpt,int div, int xMin, int xMax){
+void Particle::calculateMomentumAndRapidity(int xminpt, int xmaxpt,int div, int xMin, int xMax){
   cout << "Momentum";
   //int div = 12;
   const int pInt = 100; 
@@ -40,7 +44,7 @@ void Particle::CalculateMomentumAndRapidity(int xminpt, int xmaxpt,int div, int 
   //xMin and xMax: relative to rapitidy
   
   //Parameters for calculus:
-  //double resultado_integral;
+  double resultado_integral;
   double mx[pInt+1]; 
   double my[pInt+1];
   const double divPt =200;   

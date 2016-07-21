@@ -5,33 +5,42 @@
 ClassImp(Equation)
 
 //Construtor:
-Equation::Equation(double e, int equation)
+Equation::Equation(double e, int eq)
 {
    energia  = e;
+   equation = eq;
 }
 //Functions:
 double Equation::EqLog()
 {
+   double a = 7.8;
+   int b = 19;
    cout <<"Equation 1" << endl;
-   num_part_log = (7.8*log(energia))-19;
+   double num_part_log = (a*log(energia))-b;
    return num_part_log;
 }
 
 double Equation::EqLin()
 {
+   double a = 0.004;
+   int b = 31;
    cout <<"Equation 2" << endl;
-   num_part = (0.004 * energia)+31;  
+   double num_part = (a* energia)+b;  
    return num_part;
 }
 //
 double Equation::Eq()
 {
+   double result;
+   printf("%d", equation);
    if(equation < 0)
    {
-      return EqLin();
+      result = EqLin();
    } 
    else
    {
-     return  EqLog();
-   } 
+     result =  EqLog();
+   }
+     printf("%lf", result);
+     return result; 
 }

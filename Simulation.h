@@ -18,10 +18,19 @@ class Simulation : public TObject
   private:
       int x;  
       int y;
+      const int size = 2;
+      const int g = 2;
+      
       Settings Config;
+      
+      //File
       File      Arc;  
+      //Particles
       Particle *a;  
-      Particle b[2];
+      Particle part[size];
+       
+      //Events:
+      Event events[g];
 
    ClassDef(Simulation,1) 
 };

@@ -11,8 +11,8 @@ Settings::Settings()
        energy = 2300;
 
 //Numeric parameters:
-       xMinpt = 0;
-       xMaxpt =3;
+       xminpt = 0;
+       xmaxpt =3;
        xMin = -10;
        xMax = 10;
        div = 12;
