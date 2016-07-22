@@ -2,7 +2,16 @@
 
 ClassImp(Particle)
 
-//Constructor:
+//Construtor:
+Particle::Particle()
+{
+   id =  37;
+   N = 0;
+   mass =0;
+   charge = 0;
+   resultado_integral = 0;
+}
+//Constructor  2:
 Particle::Particle(int i, int c, double m, double n)
 {
     cout << "Particle" << endl;
@@ -10,8 +19,19 @@ Particle::Particle(int i, int c, double m, double n)
     N = n;
     charge = c;
     mass = m;
+    resultado_integral = 0;
     //P = xx;
     
+}
+//Get Mass
+double Particle::GetMass()
+{
+   return mass;
+}
+//Get Charge
+int Particle::GetCharge()
+{
+  return charge;
 }
 //Return  Result
 double Particle::GetResult()
@@ -28,12 +48,46 @@ void Particle::SetP(double r)
 {
    P = r;
 }
+//Get P
 double Particle::GetP()
 {
   return P;
 }
+//Get MX:
+double* Particle::GetMX()
+{
+  return mx;
+}
+double* Particle::GetMY(){
+  return my;
+}
+double* Particle::GetMYPT()
+{
+  return mypt;
+}
+double* Particle::GetMXPT()
+{
+  return mxpt;
+}
+//Get gr:
+TGraph* Particle::GetGr(){
+  return gr;
+}
+//Get gInt:
+TGraph* Particle::GetgInt()
+{
+ return gInt;
+}
+//Get gIntegral:
+TGraph* Particle::GetgIntegral(){
+ return gIntegral;
+}
+//Get gIntegrapPt:
+TGraph* Particle::GetgIntegralPt(){
+  return gIntegralpt;
+} 
 //Calculate Momentum:
-void Particle::calculateMomentumAndRapidity(int xminpt, int xmaxpt,int div, int xMin, int xMax){
+void Particle::CalculateMomentumAndRapidity(int xminpt, int xmaxpt,int div, int xMin, int xMax){
   cout << "Momentum";
   //int div = 12;
   const int pInt = 100; 
@@ -44,12 +98,25 @@ void Particle::calculateMomentumAndRapidity(int xminpt, int xmaxpt,int div, int 
   //xMin and xMax: relative to rapitidy
   
   //Parameters for calculus:
-  double resultado_integral;
-  double mx[pInt+1]; 
-  double my[pInt+1];
-  const double divPt =200;   
-  double mxpt[divPt+1];
-  double mypt[divPt+1];
+  //double resultado_integral;
+  //double mx[pInt+1]; 
+  double  TT1[pInt+1];
+  mx = TT1;
+
+  //double my[pInt+1];
+  double TT2[pInt+1];
+  my = TT2;
+
+ // const double divPt =200;   
+  
+  double TT3[divPt+1];
+  mxpt = TT3;
+
+  double TT4[divPt+1];
+  mypt = TT4;
+
+  //double mxpt[divPt+1];
+  //double mypt[divPt+1];
   double xipt = xminpt;
   double limpt = xmaxpt - xminpt;
 
@@ -65,7 +132,7 @@ void Particle::calculateMomentumAndRapidity(int xminpt, int xmaxpt,int div, int 
                   fr->SetParameter(2,mass);    // valor da massa atribuido a cada vez que "for(e)" roda.
                   fr->SetParameter(1,y);           // valor de y atribuido a cada vez que o "for(t)" roda
 
-                  const int np = 1000;
+                  //const int np = 1000;
                   double *xf=new double[np];
                   double *wf=new double[np];
 

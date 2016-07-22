@@ -1,4 +1,5 @@
 #include "Event.h"
+#include "Equation.h"
 
 //Default:
 ClassImp(Event)
@@ -82,9 +83,16 @@ void Event::MonteCarlo(const int size)
   result = TT;
  
   double mxpt[result_row+1][size+1];
+         mxpt[0] = (*all).GetMXPT();
+
   double mypt[result_row+1][size+1];
+         mypt[0] = all->GetMYPT();
+
   double mx[result_row+1][size+1];
+         mx[0] = all->GetMX();
+
   double my[result_row+1][size+1];
+         my[0] = all->GetMY();
  
   for (int l=0; l < n_p; l++){
 
