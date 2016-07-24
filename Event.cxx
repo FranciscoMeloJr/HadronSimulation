@@ -1,5 +1,6 @@
 #include "Event.h"
 #include "Equation.h"
+#include "Particle.h"
 
 //Default:
 ClassImp(Event)
@@ -81,9 +82,10 @@ void Event::MonteCarlo(const int size)
   }
   //result:
   result = TT;
- 
+  double* pointer;
+
   double mxpt[result_row+1][size+1];
-         mxpt[0] = (*all).GetMXPT();
+         pointer = all.GetMXPT();
 
   double mypt[result_row+1][size+1];
          mypt[0] = all->GetMYPT();

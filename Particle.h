@@ -10,7 +10,8 @@ using namespace std;
 
 class Particle : public TObject 
 {
-  public: 
+  public:
+       Particle();    
        Particle(int i, int c, double m, double n);
        void CalculateMomentumAndRapidity(int xminpt, int xmaxpt, int div, int xMin,int xMax);
        double GetResult();
