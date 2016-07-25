@@ -15,8 +15,8 @@ Event::Event(Particle* d, double  e, int equation)
    cout << "Event" <<endl;
    energia = e;
    all = d;
-   Equation x = new Equation(e, equation);
-
+   Equation* x = new Equation(e, equation);
+   eq = x;
   //Pointer operations, size is an argument:
   
  
