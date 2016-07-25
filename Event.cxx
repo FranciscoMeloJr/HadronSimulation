@@ -42,16 +42,21 @@ void Event::MonteCarlo(const int size)
     gRandom = new TRandom3(0);
     gRandom->TRandom::setSeed(0);
   
-   /*
+   
     //Equation *eq = new Equation(energia);
     //which equation?: log or linear
     double n_pp = eq->Eq();
     double p[size];
     double x[size*10000];
     int divpt = 200;
-    //
-    p[0] = all->GetP();
+    //verification of p:
+    for(int i =0;i < size; i++ )
+    {
+       p[i] = all->GetP();
+       cout << "P" << p[i];
+    }
 
+    getchar();
  // for(int g=0;g<eventos;g++){                    // Inicio do "for" com a variavel (g) "for(g)" determina o número de eventos 
 
   // Usando a multiplicidade para calcular o numero de partículas dado a energia 
@@ -88,22 +93,25 @@ void Event::MonteCarlo(const int size)
   result = TT;
   double* pointer;
 
-  double mxpt[result_row+1][size+1];
-         pointer = all.GetMXPT();
+  double** mxpt = new double*[result_row+1];
+         mxpt[0] = all->GetMXPT();
+   
+  cout << "mxpt 0" << mxpt[0] << endl;
 
-  double mypt[result_row+1][size+1];
+  double** mypt = new double*[result_row+1]
          mypt[0] = all->GetMYPT();
 
-  double mx[result_row+1][size+1];
+  double** mx = new double*[result_row+1];
          mx[0] = all->GetMX();
 
-  double my[result_row+1][size+1];
+  double** my = new double*[result_row+1];
          my[0] = all->GetMY();
  
+  getchar();
   for (int l=0; l < n_p; l++){
 
            x[l] = gRandom->Uniform(0,1);         // Sorteio das partículas.                     
-    
+             getchar();  
     
        for(int k=0; k < size; k++){
              
@@ -119,7 +127,7 @@ void Event::MonteCarlo(const int size)
 
                    }
 
-
+      getchar();
                    for(int mt=0;mt< n_p*10;mt++){
 
                            double Ypt = gRandom->Uniform(xminpt,xmaxpt);                         // Sorteio do valor da abscissa
@@ -173,5 +181,5 @@ void Event::MonteCarlo(const int size)
                    }
            }
   }
-  */
+  
 }
