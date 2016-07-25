@@ -10,7 +10,8 @@ using namespace std;
 class Event: public TObject
 {
   public:
-        Event(Particle []d, int e, int eq);
+        Event();
+        Event(Particle* d, int e, int equation);
         double[] Execute();
         void MonteCarlo(const int size);
         void PrintResult(int i);
