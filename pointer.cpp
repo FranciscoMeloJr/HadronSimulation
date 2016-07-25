@@ -1,7 +1,13 @@
 // This is a testing program
 #include <iostream>
- 
+#include <stdio.h>
 using namespace std;
+
+//Function pointer tests:
+void my_int_func(int x)
+{
+    printf( "%d\n", x );
+}
 
 //calculate:
 int* calculateArrayP(int i,int size)
@@ -84,5 +90,14 @@ int main()
   pToMatrix[0] = pToArray;
   cout << "Result" << pToMatrix[0][2][2];
   
-  return 0;
+  cout << "Test 5 -- Functino pointer" << endl;
+  
+
+// Pointer to function
+void (*foo)(int);
+/* the ampersand is actually optional */
+foo = &my_int_func;
+foo( 2 );
+
+return 0;
 }
