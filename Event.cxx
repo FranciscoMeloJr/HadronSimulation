@@ -6,12 +6,12 @@
 ClassImp(Event)
 
 //Construtor:
-Event::Event(Particle d[], int  e, int equation)
+Event::Event(Particle* d, int  e, int equation)
 {
    cout << "Event" <<endl;
    energia = e;
    all = d;
-   eq = new Equation(e, equation);
+   Equation x = new Equation(e, equation);
 
   //Pointer operations, size is an argument:
   
