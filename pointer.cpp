@@ -77,5 +77,12 @@ int main()
        cout <<endl;
   }
 
+  cout << "Test 4 - Pointer to Matrix in CPP" << endl;
+  int*** pToMatrix;
+  pToMatrix = new int**[3];
+  
+  pToMatrix[0] = pToArray;
+  cout << "Result" << pToMatrix[0][2][2];
+  
   return 0;
 }
