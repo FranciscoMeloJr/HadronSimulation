@@ -37,8 +37,8 @@ void Event::MonteCarlo(const int size)
     cout << "Monte Carlo" << endl;
     gRandom = new TRandom3(0);
     gRandom->TRandom::setSeed(0);
-
-
+  
+   /*
     //Equation *eq = new Equation(energia);
     //which equation?: log or linear
     double n_pp = eq->Eq();
@@ -47,7 +47,7 @@ void Event::MonteCarlo(const int size)
     int divpt = 200;
     //
     p[0] = all->GetP();
-/*  
+
  // for(int g=0;g<eventos;g++){                    // Inicio do "for" com a variavel (g) "for(g)" determina o número de eventos 
 
   // Usando a multiplicidade para calcular o numero de partículas dado a energia 
@@ -61,7 +61,7 @@ void Event::MonteCarlo(const int size)
   //cout<< num_part_log <<endl;
 
   // Obs: para os calculos pode se utilizar de apenas uma equação que será determinada na variável n_p. 
-*/
+
 
   const int n_p =  n_pp;//num_part_log;          // Número de particulas geradas. "neste caso está sendo usado a equação logarítmica para calcular o número de partículas" 
  //double result[n_p][4];                 // Matriz criada para guardar os resultados.
@@ -169,5 +169,5 @@ void Event::MonteCarlo(const int size)
                    }
            }
   }
-
+  */
 }
