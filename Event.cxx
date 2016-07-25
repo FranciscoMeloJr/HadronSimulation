@@ -4,8 +4,11 @@
 
 //Default:
 ClassImp(Event)
-
-//Construtor:
+//Constructor 1:
+Event::Event()
+{
+}
+//Construtor 2:
 Event::Event(Particle* d, int  e, int equation)
 {
    cout << "Event" <<endl;
