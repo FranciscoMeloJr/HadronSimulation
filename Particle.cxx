@@ -41,6 +41,7 @@ double Particle::GetResult()
 //Return N:
 double Particle::GetN()
 {
+    cout << N << endl;
     return N;
 }
 //Return P

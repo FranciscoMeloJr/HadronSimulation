@@ -10,13 +10,14 @@ Event::Event()
     cout << "Constructor default";
 }
 //Construtor 2:
-Event::Event(Particle* d, double  e, int equation)
+Event::Event(Particle* d, double  e, int equation, int s) 
 {
    cout << "Event" <<endl;
    energia = e;
    all = d;
    Equation* x = new Equation(e, equation);
    eq = x;
+   size = s;
   //Pointer operations, size is an argument:
   
  
@@ -36,7 +37,7 @@ void  Event::PrintResult(int i)
 }
 
 //This method run the monteCarlo Simulation
-void Event::MonteCarlo(const int size)
+void Event::MonteCarlo()
 {
     cout << "Monte Carlo" << endl;
     gRandom = new TRandom3(0);
@@ -45,15 +46,21 @@ void Event::MonteCarlo(const int size)
    
     //Equation *eq = new Equation(energia);
     //which equation?: log or linear
+    const int Size = size;
     double n_pp = eq->Eq();
-    double p[size];
-    double x[size*10000];
+    double p[Size];
+    double massa[Size];
+    int carga[Size];
+    double x[Size*10000];
     int divpt = 200;
     //verification of p:
-    for(int i =0;i < size; i++ )
+    for(int i =0;i < Size; i++ )
     {
        p[i] = all->GetP();
-       cout << "P" << p[i];
+       massa[i] = all->GetMass();
+       carga[i] = all->GetCharge();
+       cout << "P" << p[i] <<" " << massa[i] << " " << carga[i] <<endl;
+       all++;
     }
 
     getchar();

@@ -21,7 +21,8 @@ class Event: public TObject
         Particle* all;
         int  eqS;
         Equation* eq;
-        
+        int size;
+  
         //result
         double** result;
   ClassDef(Event,1)
