@@ -12,17 +12,17 @@ class Event: public TObject
   public:
         Event();
         Event(Particle* d, int e, int equation);
-        double[] Execute();
+        double* Execute();
         void MonteCarlo(const int size);
         void PrintResult(int i);
 
   private:
         double energia;
-        Particle *all;
+        Particle* all;
         int  eqS;
-        Equation *eq;
+        Equation* eq;
         
         //result
-        double** result;       
+        double** result;
   ClassDef(Event,1)
 };
