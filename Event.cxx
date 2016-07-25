@@ -53,13 +53,30 @@ void Event::MonteCarlo()
     int carga[Size];
     double x[Size*10000];
     int divpt = 200;
-    //verification of p:
+    
+    //declaring variables:
+    double** mxpt = new double*[Size];
+    double** mypt = new double*[Size]
+    double** mx = new double*[Size];
+    double** my = new double*[Size];
+    
+    //reading each particle:
     for(int i =0;i < Size; i++ )
     {
+        cout << i;
        p[i] = all->GetP();
        massa[i] = all->GetMass();
        carga[i] = all->GetCharge();
-       cout << "P" << p[i] <<" " << massa[i] << " " << carga[i] <<endl;
+       cout << p[i] <<" " << massa[i] << " " << carga[i] <<endl;
+       
+        //Matrixes
+        mxpt[i] = all->GetMXPT();
+        mypt[i] = all->GetMYPT();
+        mx[i] = all->GetMX();
+        my[i] = all->GetMY();
+        
+        cout << "mxpt: " << mxpt[i] << " mx: " mx[i]
+       //pointer
        all++;
     }
 
@@ -100,19 +117,7 @@ void Event::MonteCarlo()
   result = TT;
   double* pointer;
 
-  double** mxpt = new double*[result_row+1];
-         mxpt[0] = all->GetMXPT();
-   
-  cout << "mxpt 0" << mxpt[0] << endl;
 
-  double** mypt = new double*[result_row+1]
-         mypt[0] = all->GetMYPT();
-
-  double** mx = new double*[result_row+1];
-         mx[0] = all->GetMX();
-
-  double** my = new double*[result_row+1];
-         my[0] = all->GetMY();
  
   getchar();
   for (int l=0; l < n_p; l++){
