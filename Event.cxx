@@ -26,7 +26,8 @@ Event::Event(Particle* d, double  e, int equation, int s)
 //Return the result of the Event, in a matrix:
 double** Event::Execute()
 {
-  result[2][2] = {0};
+  result = new double[2][2];
+  //result = {0};
   return result;  
 }
 //Get Result:
@@ -56,7 +57,7 @@ void Event::MonteCarlo()
     
     //declaring variables:
     double** mxpt = new double*[Size];
-    double** mypt = new double*[Size]
+    double** mypt = new double*[Size];
     double** mx = new double*[Size];
     double** my = new double*[Size];
     
@@ -75,7 +76,7 @@ void Event::MonteCarlo()
         mx[i] = all->GetMX();
         my[i] = all->GetMY();
         
-        cout << "mxpt: " << mxpt[i] << " mx: " mx[i]
+        cout << "mxpt: " << mxpt[i][0] << " mx: "<<  mx[i][0];
        //pointer
        all++;
     }
@@ -103,21 +104,23 @@ void Event::MonteCarlo()
   const int result_row = n_p;
   const int result_col = 4;
  
-  double TT[result_row][result_col];
+  /*double TT[result_row][result_col];
+  */
+  result = new double[result_row][result_col];
 
   for(int i = 0; i < result_row ; i++)
   {
      for(int j = 0 ;j <  result_col; j++)
       {
-        TT[i][j] = 0.0;
+        result[i][j] = 0.0;
       }
         
   }
   //result:
-  result = TT;
+  //result = TT;
   double* pointer;
 
-
+  cout << " Result " << result[0][0] << endl;
  
   getchar();
   for (int l=0; l < n_p; l++){
