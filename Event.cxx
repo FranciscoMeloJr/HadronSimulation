@@ -7,9 +7,10 @@ ClassImp(Event)
 //Constructor 1:
 Event::Event()
 {
+    cout << "Constructor default";
 }
 //Construtor 2:
-Event::Event(Particle* d, int  e, int equation)
+Event::Event(Particle* d, double  e, int equation)
 {
    cout << "Event" <<endl;
    energia = e;

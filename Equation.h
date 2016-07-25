@@ -10,7 +10,7 @@ using namespace std;
 class Equation : public TObject
 {
   public:
-        Equation(double d, int eq);
+        Equation(double e, int eq);
         double EqLin();
         double EqLog();
         double Eq();
