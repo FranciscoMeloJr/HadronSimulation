@@ -158,7 +158,7 @@ void Event::MonteCarlo()
 
                    }
 
-    
+    getchar();
     
                        // Rapidez 
 
