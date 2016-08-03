@@ -108,6 +108,7 @@ void Event::MonteCarlo()
   */
   result = new double[result_row][result_col];
 
+  getchar();
   for(int i = 0; i < result_row ; i++)
   {
      for(int j = 0 ;j <  result_col; j++)
