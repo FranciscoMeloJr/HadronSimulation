@@ -8,7 +8,7 @@ class Settings : public TObject
 {
     public:
        Settings();
-       Method1();
+       void Method1();
        
        int fileName;
     private:

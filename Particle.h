@@ -45,7 +45,7 @@ class Particle : public TObject
        double* mxpt;
   //Consts:
        static const int np = 1000;
-       static const divPt = 200;
+       static const int divPt = 200;
   //Calculated:
        //traversal momentum
        //rapidity
