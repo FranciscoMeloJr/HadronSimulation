@@ -25,7 +25,7 @@ Settings::Settings()
  //File:
        fileName = 3; 
 }
-Settings::Method1()
+void Settings::Method1()
 {
   cout << "Method 1"<< endl;
 }

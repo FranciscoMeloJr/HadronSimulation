@@ -1,6 +1,6 @@
 #include "Event.h"
-#include "Equation.h"
-#include "Particle.h"
+//#include "Equation.h"
+//#include "Particle.h"
 
 //Default:
 ClassImp(Event)
@@ -18,8 +18,7 @@ Event::Event(Particle* d, double  e, int equation, int s)
    Equation* x = new Equation(e, equation);
    eq = x;
    size = s;
-  //Pointer operations, size is an argument:
-  
+  //Pointer operations, size is an argument: 
  
 }
 //Functions:
@@ -38,11 +37,11 @@ void  Event::PrintResult(int i)
 }
 
 //This method run the monteCarlo Simulation
-void Event::MonteCarlo()
+void Event::MonteCarlo(int const a)
 {
     cout << "Monte Carlo" << endl;
     gRandom = new TRandom3(0);
-    gRandom->TRandom::setSeed(0);
+    gRandom->TRandom::SetSeed(0);
   
    
     //Equation *eq = new Equation(energia);
@@ -54,13 +53,20 @@ void Event::MonteCarlo()
     int carga[Size];
     double x[Size*10000];
     int divpt = 200;
-    
+    const int pint = 100;
+    double xminpt = 0;
+    double xmaxpt = 3; 
+    double xmin = 10;
+    double xmax = 10;    
+
     //declaring variables:
     double** mxpt = new double*[Size];
     double** mypt = new double*[Size];
     double** mx = new double*[Size];
     double** my = new double*[Size];
-    
+ 
+    double resultado_integral[Size];
+   
     //reading each particle:
     for(int i =0;i < Size; i++ )
     {
