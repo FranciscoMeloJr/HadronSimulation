@@ -1,8 +1,6 @@
 #ifndef Event_H
 #define Event_H
 
-#endif
-
 
 using namespace std;
 
@@ -27,3 +25,5 @@ class Event: public TObject
         double** result;
   ClassDef(Event,1)
 };
+
+#endif
