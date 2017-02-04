@@ -1,102 +1,34 @@
 #include "Simulation.h"
-#include "Settings.h"
-#include "File.h"
-#include "Particle.h"
-#include "Equation.h"
 
-//Default:
+
 ClassImp(Simulation)
 
-//Construtor 1:
-Simulation::Simulation()
-{
-     cout << "Begin of the simulation" << endl;
-     x = 10;
-     y = 20;
-     cout << x << endl;
-
-     Config = new Settings();
-     Arc = new File(Config.fileName);
+//v1.0
+Simulation :: Simulation ():q{
+   cout << "simulation start" << endl;
 }
-//Construtor 2:
-Simulation::Simulation(int firP, int secP)
-{ 
-     cout << "Begin of the simulation" << endl;
-     x = firP;
-     y = secP; 
-     cout << x << endl; 
-
-     Config = new Settings();
-     Arc = new File(Config.fileName);
+//Function to read the settings:
+Simulation::read()
+{
+   cout << "This is read" << endl;
+   events = 1;
+   energy = 2300;
 }
 
-//this method will charge the data and run the experiments:
-void Simulation::Calculate()
-{
-     cout << x + y << endl; 
-     Config.Method1(); 
-     cout <<"gerator" <<Config.gerator <<endl;
+//Initialize the variables:
+Simulation :: initialize(){
+   
+  xminpt = 0.0;                          // Valor do limite mínimo para pt
+  xmaxpt = 3.0;                          // Valor do limite máximo para pt
+  xmin = -10.0;                          // X min para a integral de rapidez  
+  xmax = 10;                           // X max para a integral de rapidez
+  Double_t div =12;                     // Número de pontos para plotar no gráfico da rapidez
+  lim = xmax - xmin;                   // valor do limite de x
+  y = xmin;                            // valores para o eixo x 
+  //pint = 100;                       // pontos para a interpolação
+  xi = xmin;                           // valor para o eixo x da interpolação 
+  //size = 54;                        // Número de particulas  
+  n[]={0.000000000178527, 0.000000002432434666636607, 0.000000002432434666636607, 0.000000002440493057336401, 0.000000002440493057336401, 0.0000000230402, 0.0000000268926, 0.000000077143, 0.0000001243885392283889, 0.0000001243885392283889, 0.0000001243885392283889, 0.0000001243885392283889, 0.000000133774146395552, 0.000000133774146395552, 0.0000001626575153468772, 0.0000001626575153468772, 0.0000001639355950507426, 0.0000001639355950507426, 0.000000242905, 0.0000003291610694918138, 0.0000003291610694918138, 0.0000004649454399855365, 0.0000004649454399855365, 0.0000004649454399855365, 0.0000005436225477345856, 0.0000005523795903395713, 0.0000006826355989218414, 0.0000006826355989218414, 0.0000006826355989218414, 0.0000006826355989218414, 0.0000007479215986494419, 0.0000007575305024323641, 0.0000007638148820053583, 0.000000933644, 0.00000122603, 0.0000014766141547977551, 0.000001560097463554025, 0.000001566298958394324, 0.0000018089421064631, 0.0000018089421064631, 0.0000018089421064631, 0.0000018089421064631, 0.00000258166, 0.000002697942688005066, 0.000002697942688005066, 0.000002697942688005066, 0.000006059602317495987, 0.000007431177664583774, 0.000007431177664583774, 0.000007554558250517257, 0.000007554558250517257, 0.0000356944, 0.0000356944, 0.0000363897};     // Resultado de N para cada massa, vindo de uma equação da TACNE. Resultados obtidos pelo programa Mathematica.
+  mass[]={9.46, 5.275, 5.275, 5.271, 5.271, 3.097, 2.981, 2.281, 2.010, 2.010, 2.010, 2.010, 1.971, 1.971, 1.869, 1.869, 1.865, 1.865, 1.672, 1.533, 1.533, 1.385, 1.385, 1.385, 1.3213, 1.3149, 1.232, 1.232, 1.232, 1.232, 1.1973, 1.1925, 1.1894, 1.1156, 1.02, 0.9576, 0.939573, 0.938280, 0.892, 0.892, 0.892, 0.892, 0.783, 0.77,0.77, 0.77, 0.5488, 0.49772, 0.49772, 0.49367, 0.49367, 0.139569, 0.139569, 0.134964};        // Valor da massa de cada particulda.
+  charge[]={0,0,0,1,-1,0,0,1,1,-1,0,0,1,-1,1,-1,0,0,-1,-1,0,1,-1,0,-1,0,1,-1,0,2,-1,0,1,0,0,0,0,1,1,-1,0,0,0,1,-1,0,0,0,0,1,-1,1,-1,0}; 
 }
-
-//this method creates the particles
-void Simulation::CreateParticles()
-{
-    //Create all the particles:
-    a  = new Particle(1,-1,0.00333,23.0);  
-    part[0] = new Particle(2,-1,0.034,24.0); 
-    part[1] = new Particle(3,1,0.024,23.0);
-}
-
-//This method run the simulation:
-void Simulation::RunSimulation()
-{
-    cout << "Simulation begin" << endl;
-
-    a->calculateMomentumAndRapidity(0,3,12,-10,10);
-    part[0].calculateMomentumAndRapidity(1,3,12,-10,10);
-    part[1].calculateMomentumAndRapidity(2,3,12,-10,10);
-
-    
-    Normalization();
-    Event events[2];
-
-    events[0] = new Event(b, Config.energy,1);
-
-    cout << "Simulation end" << endl;
-}
-//Normalization process:
-void Normalization()
-{
-    const int size = 2;
-    double n[size];
-    int total=0; 
-    double r;
-
-    int  i = 0, j= 0;
-    //take N from particles:
-    //for(int i = 0 ; i< size; i++)
-    //{
-       n[i]=part[i].GetN();
-       total+=n[i];
-    //}
-    //set P in the particles:
-    //for(int j=0; j<size; j++)
-    //{
-        r = r+(n[j]/total);
-        part[j].setP(r);
-    //}
-}
-//This method run the monteCarlo Simulation
-void MonteCarlo()
-{
-    cout << "Monte Carlo" << endl;
-    gRandom = new TRandom3(0);
-    gRandom->setSeed(0);
-    
-    Equation *eq = new Equation(Config.energy);
-    //which equation?: log or linear
-    double n_p = eq->(1); 
-
-    
-}  
-//Simulation S(10);
