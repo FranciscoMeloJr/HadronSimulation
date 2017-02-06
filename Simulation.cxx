@@ -6,7 +6,7 @@ ClassImp(Simulation)
 //v1.0
 Simulation::Simulation() : TObject()
 {
-   cout << "simulation start" << endl;
+   std::cout << "simulation start" << std::endl;
 }
 //Function to read the settings:
 void Simulation::read()
@@ -54,21 +54,41 @@ void Simulation::initialize(){
   x = x_;
   p = p_;
   resultado_integral = results;
+  
+  double mx_[pint+1][size+1];                  // Matriz que guarda os valores de x do gráfico após a interpolação. 
+  double my_[pint+1][size+1];
+  mx = new double*[pint+1];
+  my = new double*[pint+1];
  
-  double** mx_ = new double*[pint+1];
+  for(int i = 0; i< pint+1;i++){
+     mx[i] = mx_[i];
+     my[i] = my_[i];
+  }
 
-  for(int i=0;i<pint;i++){
-     mx_[i] =  new double [size+1];
-  } 
+  
+  double mxpt_[int(divpt+1)][size+1];               // Matriz que guarda os valores de x do gráfico de pt
+  double mypt_[int(divpt+1)][size+1];     
  
- //Graphs:
+  mxpt = new double*[int(divpt+1)];
+  mypt = new double*[int(divpt+1)];
+  
+  for(int i =0; i< int(divpt+1); i++){
+	mxpt[i] = mxpt_[i];
+	mypt[i] = mypt_[i];
+
+  }
+  
+  //Graphs:
   gr = new TGraph(div+1);                                                    // Classe para guardar os pontos do gráfico de rapidez.
   gInt = new TGraph(pint+1);                                                 // Classe para guardar os pontos do gráfico interpolado, para depois integrar. 
   gIntegral = new TGraph(pint+1);                                            // Classe para guardar os pontos do gráfico para fazer a normalização.     
   gIntegralpt = new TGraph(divpt+1);                                         // Classe para guardar os pontos do gráfico para fazer a normalização.
   gRandom = new TRandom3(0);
   gRandom->SetSeed(0);    
- 
+
+  //Saving to file:
+  EnderecoSalva = "Particulas.txt";
+  myfile.open(EnderecoSalva);
 }
 
 //Run function:
@@ -191,8 +211,16 @@ void Simulation::run()
   // Obs: para os calculos pode se utilizar de apenas uma equação que será determinada na variável n_p. 
   
   const int n_p = num_part_log;          // Número de particulas geradas. "neste caso está sendo usado a equação logarítmica para calcular o número de partículas" 
-  double result[n_p][4];                 // Matriz criada para guardar os resultados.
-     
+  nn_p = n_p;
+  double result[n_p][cols];                 // Matriz criada para guardar os resultados.
+  
+  rresult = new double*[cols];
+
+  for(int i=0;i<n_p;i++){
+     rresult[i] = result[i];
+  }
+
+   
   for (int l=0; l < n_p; l++){
   
            x[l] = gRandom->Uniform(0,1);         // Sorteio das partículas.                                   
@@ -286,4 +314,16 @@ void Simulation::run()
   myfile.close();
      
 }
+//Simulation - write to File:
+void Simulation::writeFile(){
+  
+  for(int c=0; c < nn_p; c++){
 
+                myfile << rresult[c][0] << "\t" << rresult[c][1] << "\t" << rresult[c][2] << "\t" << rresult[c][3] <<endl;       // Salvando os valores em um arquivo externo       
+
+                }
+                     // Fim de "for(g)"
+
+  myfile.close();
+  
+}

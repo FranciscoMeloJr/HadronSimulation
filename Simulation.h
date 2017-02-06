@@ -31,8 +31,8 @@ class Simulation : public TObject{
         Simulation();
         void read();
         void initialize();
-        virtual ~Simulation();
         void run();
+	void writeFile();
 
   private:
         int events;   
@@ -66,6 +66,11 @@ class Simulation : public TObject{
 	double** mypt;               // Matriz que guarda os valores de y do gráfico de pt
 	double xipt;                       // Valor para o eixo x da interpolação de pt
 	double limpt;
+
+        //New:
+        int cols = 4; 
+        int nn_p;
+        double** rresult;
 
         //Graphs:
         TGraph* gr;
