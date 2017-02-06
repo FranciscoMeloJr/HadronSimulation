@@ -21,5 +21,11 @@
 ./Simulation_cxx.so: /usr/include/root/TVectorDfwd.h
 ./Simulation_cxx.so: /usr/include/root/TFitResultPtr.h
 ./Simulation_cxx.so: /usr/include/root/TRandom3.h /usr/include/root/TRandom.h
+./Simulation_cxx.so: /usr/include/root/TF1.h /usr/include/root/TFormula.h
+./Simulation_cxx.so: /usr/include/root/TBits.h /usr/include/root/TObjArray.h
+./Simulation_cxx.so: /usr/include/root/TSeqCollection.h
+./Simulation_cxx.so: /usr/include/root/TCollection.h
+./Simulation_cxx.so: /usr/include/root/TIterator.h
+./Simulation_cxx.so: /usr/include/root/Math/ParamFunctor.h
 ./Simulation_cxx.so: /usr/include/root/cintdictversion.h /usr/include/root/RVersion.h
 Simulation_cxx__ROOTBUILDVERSION= 5.34/30

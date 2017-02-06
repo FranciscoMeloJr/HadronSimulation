@@ -26,13 +26,14 @@ void Simulation::initialize(){
   xmaxpt = 3.0;                          // Valor do limite máximo para pt
   xmin = -10.0;                          // X min para a integral de rapidez  
   xmax = 10;                           // X max para a integral de rapidez
-                       // Número de pontos para plotar no gráfico da rapidez
+  xipt = xminpt;                        // Número de pontos para plotar no gráfico da rapidez
   lim = xmax - xmin;                   // valor do limite de x
   y = xmin;                            // valores para o eixo x 
   //pint = 100;                       // pontos para a interpolação
   xi = xmin;                           // valor para o eixo x da interpolação 
   //size = 54;                        // Número de particulas  
   //n = new double [size];
+  limpt = xminpt;
 
   double n_ []= {0.000000000178527, 0.000000002432434666636607, 0.000000002432434666636607, 0.000000002440493057336401, 0.000000002440493057336401, 0.0000000230402, 0.0000000268926, 0.000000077143, 0.0000001243885392283889, 0.0000001243885392283889, 0.0000001243885392283889, 0.0000001243885392283889, 0.000000133774146395552, 0.000000133774146395552, 0.0000001626575153468772, 0.0000001626575153468772, 0.0000001639355950507426, 0.0000001639355950507426, 0.000000242905, 0.0000003291610694918138, 0.0000003291610694918138, 0.0000004649454399855365, 0.0000004649454399855365, 0.0000004649454399855365, 0.0000005436225477345856, 0.0000005523795903395713, 0.0000006826355989218414, 0.0000006826355989218414, 0.0000006826355989218414, 0.0000006826355989218414, 0.0000007479215986494419, 0.0000007575305024323641, 0.0000007638148820053583, 0.000000933644, 0.00000122603, 0.0000014766141547977551, 0.000001560097463554025, 0.000001566298958394324, 0.0000018089421064631, 0.0000018089421064631, 0.0000018089421064631, 0.0000018089421064631, 0.00000258166, 0.000002697942688005066, 0.000002697942688005066, 0.000002697942688005066, 0.000006059602317495987, 0.000007431177664583774, 0.000007431177664583774, 0.000007554558250517257, 0.000007554558250517257, 0.0000356944, 0.0000356944, 0.0000363897};     // Resultado de N para cada massa, vindo de uma equação da TACNE. Resultados obtidos pelo programa Mathematica.
   
@@ -173,7 +174,7 @@ void Simulation::run()
   r = 0;
 
    
-  for(int g=0;g<eventos;g++){                    // Inicio do "for" com a variavel (g) "for(g)" determina o número de eventos 
+  for(int g=0;g<events;g++){                    // Inicio do "for" com a variavel (g) "for(g)" determina o número de eventos 
  
 /*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/  
 
@@ -181,9 +182,9 @@ void Simulation::run()
   
   double num_part_log , num_part;
 
-  num_part_log =(7.8*log(energia))-19;   // Equação logarítimica              
+  num_part_log =(7.8*log(energy))-19;   // Equação logarítimica              
 
-  num_part = (0.004 * energia)+31;       // Equação linear
+  num_part = (0.004 * energy)+31;       // Equação linear
 
   cout<< num_part_log <<endl;
   
@@ -263,8 +264,8 @@ void Simulation::run()
 		      }
                               
                           
-                   result[l][0] = massa[k];               // Valor da massa da partícula
-                   result[l][1] = carga[k];               // Valor da carga da partícula
+                   result[l][0] = mass[k];               // Valor da massa da partícula
+                   result[l][1] = charge[k];               // Valor da carga da partícula
 
                    break;
  
@@ -275,7 +276,7 @@ void Simulation::run()
 
 // salvando os valores em um arquivo .txt.
       
-  for(const int c=0; c < n_p; c++){
+  for(int c=0; c < n_p; c++){
 
                 myfile << result[c][0] << "\t" << result[c][1] << "\t" << result[c][2] << "\t" << result[c][3] <<endl;       // Salvando os valores em um arquivo externo       
     

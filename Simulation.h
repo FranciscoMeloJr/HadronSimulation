@@ -17,6 +17,10 @@
 #include "TRandom3.h"
 #endif
 
+#ifndef ROOT_TF1
+#include "TF1.h"
+#endif
+
 #include <iostream>
 #include <fstream>
 
@@ -60,8 +64,8 @@ class Simulation : public TObject{
 	double** my;                  // Matriz que guarda os valores de y do gráfico após a interpolação.
 	double** mxpt;               // Matriz que guarda os valores de x do gráfico de pt
 	double** mypt;               // Matriz que guarda os valores de y do gráfico de pt
-	double xipt = xminpt;                       // Valor para o eixo x da interpolação de pt
-	double limpt = xmaxpt-xminpt;
+	double xipt;                       // Valor para o eixo x da interpolação de pt
+	double limpt;
 
         //Graphs:
         TGraph* gr;
