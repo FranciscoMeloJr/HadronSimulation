@@ -5,6 +5,21 @@
 #include "TObject.h"
 #endif
 
+#ifndef ROOT_TString
+#include "TString.h"
+#endif
+
+#ifndef ROOT_TGraph
+#include "TGraph.h"
+#endif
+
+#ifndef ROOT_TRandom
+#include "TRandom3.h"
+#endif
+
+#include <iostream>
+#include <fstream>
+
 using namespace std;
 //Class Equation:
 class Simulation : public TObject{
@@ -13,6 +28,8 @@ class Simulation : public TObject{
         void read();
         void initialize();
         virtual ~Simulation();
+        void run();
+
   private:
         int events;   
         double energy;  
@@ -31,7 +48,34 @@ class Simulation : public TObject{
         double* n;
         double* mass;
         int* charge;
+        const double divpt = 200;  
 
+        //Part 2:
+        double m = 0;                               // Variável utilizada para guardar os valores de N.
+	double* p;                             // Vetor para guardar os valores de N normalizada.
+	double r = 0;                               // Variável utilizada para guardar os valores de N na normalização.
+	double* x;                      // Vetor utilizado para guardar os valores do sorteio da particula.
+	double* resultado_integral;            // Vetor utilizado para guardar os valores das integrais de rapidez.
+	double** mx;                  // Matriz que guarda os valores de x do gráfico após a interpolação. 
+	double** my;                  // Matriz que guarda os valores de y do gráfico após a interpolação.
+	double** mxpt;               // Matriz que guarda os valores de x do gráfico de pt
+	double** mypt;               // Matriz que guarda os valores de y do gráfico de pt
+	double xipt = xminpt;                       // Valor para o eixo x da interpolação de pt
+	double limpt = xmaxpt-xminpt;
+
+        //Graphs:
+        TGraph* gr;
+        TGraph* gInt;
+        TGraph* gIntegral;
+        TGraph* gIntegralpt;
+        
+        TRandom3* gRandom;
+        
+        //File:
+        std::ofstream myfile;     
+        TString EnderecoSalva;
+
+        
   ClassDef(Simulation, 1)
 };
 

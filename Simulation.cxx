@@ -18,7 +18,10 @@ void Simulation::read()
 
 //Initialize the variables:
 void Simulation::initialize(){
-   
+  
+  events = 1;
+  energy = 2300;
+
   xminpt = 0.0;                          // Valor do limite mínimo para pt
   xmaxpt = 3.0;                          // Valor do limite máximo para pt
   xmin = -10.0;                          // X min para a integral de rapidez  
@@ -42,7 +45,244 @@ void Simulation::initialize(){
   mass = massa;
   charge = carga;
 
+  //arrays:
+  
+  double* x_ = new double[size *10000];
+  double* p_ = new double[size];
+  double* results = new double[size]; 
+  x = x_;
+  p = p_;
+  resultado_integral = results;
+ 
+  double** mx_ = new double*[pint+1];
+
+  for(int i=0;i<pint;i++){
+     mx_[i] =  new double [size+1];
+  } 
+ 
+ //Graphs:
+  gr = new TGraph(div+1);                                                    // Classe para guardar os pontos do gráfico de rapidez.
+  gInt = new TGraph(pint+1);                                                 // Classe para guardar os pontos do gráfico interpolado, para depois integrar. 
+  gIntegral = new TGraph(pint+1);                                            // Classe para guardar os pontos do gráfico para fazer a normalização.     
+  gIntegralpt = new TGraph(divpt+1);                                         // Classe para guardar os pontos do gráfico para fazer a normalização.
+  gRandom = new TRandom3(0);
+  gRandom->SetSeed(0);    
+ 
 }
 
+//Run function:
+void Simulation::run()
+{
+   // Rapidez   
+ 
+ 
+ // Integral feita para todas as massas, guardando os valores em vetores.  
+  
+ // São atríbuidos valores a y e feito a integral para cada valor, formando assim um gráfico para rapidez   
+  
+  for(int e=0; e<size; e++){                 // Inicio do "for" com a variável (e) "for(e)" modifica o valor da massa[] nas funções. 
+  
+          for(int t=0; t <= div ; t++){      // Início do "for" com a variável (t) "for(t)" modifica o valor de y para rapidez.
+  
+                  TF1 *fr = new TF1("Function", "((1/(sqrt(2*pi)*1.8))*(pow((1-(1.146-1)*(-(pow((x-2.3),2)/(2*pow(1.8,2))))),(-(1/(1.146-1)))))+(1/(sqrt(2*pi)*1.8))*(pow((1-(1.146-1)*(-(pow((x+2.3),2)/(2*pow(1.8,2))))),(-1/(1.146-1)))))*((pow(0.068,3)*pow((1/cosh([1]-x)),2))*(pow(((1.146-1)*cosh([1]-x))/0.068,(2*1.146-3)/(1.146-1)))*(([2]*(1.146-1))+(0.068*(1/cosh([1]-x))))*(((pow(([2]+((0.068*(1/cosh([1]-x)))/(1.146-1))),(-1.146/(1.146-1))))*((-pow([2],2)*(1.146-2)+(2*[2]*0.068*(1/cosh([1]-x))+(2*pow(0.068,2)*pow((1/cosh([1]-x)),2))))))/((4*pow(pi,2))*(1.146-2)*(pow((1.146-1),3))*(2*1.146-3))))", xmin, xmax);  //Função para a integração.
+                  fr->SetParameter(2,mass[e]);    // valor da massa atribuido a cada vez que "for(e)" roda.
+                  fr->SetParameter(1,y);           // valor de y atribuido a cada vez que o "for(t)" roda
 
+                  const int np = 1000;
+                  double *xf=new double[np];
+                  double *wf=new double[np];
+
+                  fr->CalcGaussLegendreSamplingPoints(np,xf,wf,1e-15);                          // Classe chamada para fazer a integral de da rapidez
+
+                  gr->GetX()[t] =  y;                                                           // y = ao valor da abscissa do gráfico
+                  gr->GetY()[t] = fr->IntegralFast(np,xf,wf,xmin,xmax);                         // integral da rapidez = a ordenada do gráfico
+                  // Os valores são guardados no gráfico gr. 
+                  
+                  
+                  y = y + lim/div;
+                  // y representa o valor do range da integral.
+                  }
+    
+            y = xmin;
+
+
+
+            // faz a interpolação com os valores do gráfico "gr" e guarda nas matrizes mx e my.   
+            for(int v=0 ; v <= pint ; v++){                         // Inicio do "for" com a variáve (pint) "for(pint)" para mudar os valores de xi
+    
+                    mx[v][e] = xi;                                  // valores atríbuidos a abscissa do gráfico na interpolação 
+                    my[v][e] = gr->Eval(xi,0,"S");                  // dado um valor da abcissa retorna o ponto da ordenada do gráfico usando a interpolação TSpline3
+                    gInt->GetX()[v] = mx[v][e];                     // guardando os valores no gráfico gInt para fazer a integral da interpolação 
+                    gInt->GetY()[v] = my[v][e];                     // guardando os valores no gráfico gInt para fazer a integral da interpolação 
+                                        
+                    xi = xi + lim/pint;                             // Atribuindo os valores a abscissa do gráfico
+
+                    }                                               // fim do for(pint)
+
+             xi = xmin;
+             resultado_integral[e]=gInt->Integral();                // faz a integral de gInt
+
+     
+     
+     
+
+/***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+ 
+   // Momento transversal
+
+   
+   // Com a função já normalizada, basta atribuir valores na abscissa para se obter valores da ordenada com a função Eval() onde os pontos estão sendo guardados nas matrize mxpt e mypt.
+   
+      for(int ptP=0; ptP <= divpt ;ptP++ ){           // Inicio do "for" com variável (ptP) "for(ptP)" muda o valor de xipt para obter o valor da ordenada 
+              
+              TF1 *f = new TF1("Function", "(((x*sqrt(pow(x,2)+pow([2],2)))/0.068)*1*((2-1.146)*(3-2*1.146))/((2-1.146)*pow([2],2)+2*[2]*0.068+2*pow(0.068,2)))*(pow((1+(1.146-1)*([2]/0.068)),(1/(1.146-1))))*(pow((1+(1.146-1)*((sqrt(pow(x,2)+pow([2],2)))/0.068)),(-1.146/(1.146-1))))", xminpt, xmaxpt);  //Função para a integração
+              f->SetParameter(2,mass[e]);            // atribui o valor de massa[] do que "for(e)" determina. 
+                      
+              mxpt[ptP][e] = xipt;                    // atribui valor para a abscissa 
+              mypt[ptP][e] = f->Eval(xipt);           // obtem o valor da ordenada.
+       
+    
+       xipt = xipt + limpt/divpt;                     // Atribuindo os valores a abscissa do gráfico
+    }                                                 // Fim de "for(ptP)"        
+    
+    xipt = xminpt;
+    
+    
+    
+    
+  }                       // fim de "for(e)"
+  
+   
+/***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+   
+ // somatória de todos os valores de n obtendo o valor de m, e depois dividindo todos os valores de n por m
+ 
+  for(int i=0 ; i < size;i++){
+  
+          m = m + n[i];            //somando todos os valores de N[].
+
+          }
+    
+  for(int j=0;j<size;j++){
+ 
+          r = r+(n[j]/m);          // dividindo cada valor de n por m
+          p[j] = r;                // Vetor onde esta sendo guardado os valores de n normalizado
+      
+          }
+  m = 0;
+  r = 0;
+
+   
+  for(int g=0;g<eventos;g++){                    // Inicio do "for" com a variavel (g) "for(g)" determina o número de eventos 
+ 
+/*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/  
+
+  // Usando a multiplicidade para calcular o numero de partículas dado a energia 
+  
+  double num_part_log , num_part;
+
+  num_part_log =(7.8*log(energia))-19;   // Equação logarítimica              
+
+  num_part = (0.004 * energia)+31;       // Equação linear
+
+  cout<< num_part_log <<endl;
+  
+  // Obs: para os calculos pode se utilizar de apenas uma equação que será determinada na variável n_p. 
+  
+  const int n_p = num_part_log;          // Número de particulas geradas. "neste caso está sendo usado a equação logarítmica para calcular o número de partículas" 
+  double result[n_p][4];                 // Matriz criada para guardar os resultados.
+     
+  for (int l=0; l < n_p; l++){
+  
+           x[l] = gRandom->Uniform(0,1);         // Sorteio das partículas.                                   
+                  
+           for(int k=0; k < size; k++){
+ 
+                   if(x[l] < p[k]){              // se o numero sorteado "x[]" for menor que "n" normalizado "p[]" utilizar o valor de massa  "massa[]"
+ 
+  
+/*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/  
+
+                   // Momento transversal
+               
+                   // Carrega os valores do gráfico para a massa[] determinada 
+		   for(int valpt=0 ; valpt <= divpt ; valpt++){
+   
+                           gIntegralpt->GetX()[valpt] = mxpt[valpt][k];                    // Obtem os valores do gráfico para determinada massa m0. 
+                           gIntegralpt->GetY()[valpt] = mypt[valpt][k];
+                    
+                   }
+               
+               
+                   for(int mt=0;mt< n_p*10;mt++){
+ 
+                           double Ypt = gRandom->Uniform(xminpt,xmaxpt);                         // Sorteio do valor da abscissa
+                           double Rpt = gIntegralpt->Eval(Ypt,0,"s");                            // Obtem o valor da ordenada do gráfico.
+                           double temppt = gRandom->Uniform(0,2.5);                              // sorteio de uma valor para a ordenada 
+ 
+                           if(temppt <= Rpt){                       // Se o valor da ordenada "temppt" for menor ou igual a o valor da ordenada "Rpt" atribuir o valor da abscissa "Ypt"
+    
+                                     result[l][2] = Ypt;              // Lugar na matriz onde é guardado o valor da ordenada de pt.
+                                 
+                                     break;
+                           }
+ 
+                   }
+ 
+
+/*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/  
+                   
+                   
+                   // Rapidez 
+  
+           
+           
+              // Carrega os valores do gráfico para a massa[] determinada 
+                   for(int val=0 ; val <= pint ; val++){
+   
+                           gIntegral->GetX()[val] = mx[val][k];                    // Obtem os valores do gráfico para determinada massa. 
+                           gIntegral->GetY()[val] = my[val][k];
+                    
+                           }
+ 
+                  
+               
+ 
+                      for(int rp=0;rp< n_p*100;rp++){    
+                  
+                                double Y = gRandom->Uniform(xmin,xmax);                         // Sorteio do valor de x
+                                double R = (gIntegral->Eval(Y,0,"s"))/(resultado_integral[k]);  // Normaliza o valor de y do gráfico para dado x.
+                                double temp = gRandom->Uniform(0,1);                          // sorteio de uma valor de y 
+
+                                if(temp <= R){
+    
+                                      result[l][3] = Y;              // Lugar na matriz onde é guardado o valor de Y da rapidez.
+                              
+                                      break;
+                               }
+		      }
+                              
+                          
+                   result[l][0] = massa[k];               // Valor da massa da partícula
+                   result[l][1] = carga[k];               // Valor da carga da partícula
+
+                   break;
+ 
+                   }
+           }
+  } 
+      
+
+// salvando os valores em um arquivo .txt.
+      
+  for(const int c=0; c < n_p; c++){
+
+                myfile << result[c][0] << "\t" << result[c][1] << "\t" << result[c][2] << "\t" << result[c][3] <<endl;       // Salvando os valores em um arquivo externo       
+    
+                }
+  }                   // Fim de "for(g)"
+   
+  myfile.close();
+     
+}
 
